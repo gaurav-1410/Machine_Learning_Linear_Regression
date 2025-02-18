@@ -68,3 +68,36 @@ if st.button("Predict Price"):
     user_data = np.array([[size_input, bedrooms_input, bathrooms_input, distance_input, age_input]])
     predicted_price = model.predict(user_data)[0]
     st.success(f"🏡 Estimated House Price: ₹ {predicted_price:.2f} Lakh")
+
+st.subheader("1️⃣ Assumptions of Linear Regression (Very Important!)")
+st.write('''Linear Regression makes some assumptions. If they don’t hold, your model may not work well.
+- Linearity → Relationship between features & target must be linear.
+- Independence → No correlation between residuals (errors).
+- Homoscedasticity → Variance of residuals should be constant across predictions.
+- Normality of Residuals → Residuals should be normally distributed.
+- No Multicollinearity → Features should not be highly correlated.''')
+
+st.subheader("2️⃣ Feature Selection & Engineering")
+st.write('''- Removing Irrelevant Features → Use p-values from statsmodels or Recursive Feature Elimination (RFE).
+- Handling Categorical Variables → Use One-Hot Encoding or Label Encoding.
+- Scaling Data → Standardization (Z-score) or MinMax Scaling.
+''')
+
+st.subheader("3️⃣ Handling Outliers & Influential Points")
+st.write('''- Outliers → Use IQR (Interquartile Range) or Z-score to detect and remove them.
+- Influential Points → Use Cook’s Distance to find and handle them.''')
+
+st.subheader("4️⃣ Regularization (Lasso & Ridge Regression)")
+st.write('''If your model overfits, try L1 (Lasso) or L2 (Ridge) regularization to reduce complexity.
+- Lasso Regression (L1) → Shrinks some coefficients to 0, good for feature selection.
+- Ridge Regression (L2) → Reduces all coefficients but doesn’t make them zero.
+- ElasticNet → Combination of L1 & L2.''')
+
+st.subheader("5️⃣ Polynomial Regression (For Non-Linear Data)")
+st.write('''If data isn’t perfectly linear, transform features:
+- Instead of predicting Y = mX + b, try Y = aX² + bX + c
+- Use PolynomialFeatures() from sklearn''')
+
+st.subheader("6️⃣ Cross-Validation & Model Selection")
+st.write('''- Use K-Fold Cross Validation to evaluate stability.
+- Compare with other models like Decision Trees & Random Forest.''')
