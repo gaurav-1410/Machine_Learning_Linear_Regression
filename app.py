@@ -7,7 +7,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
 # Loading Dataset
-df = pd.read_csv("./data/dataset.csv")
+df = pd.read_csv("data/dataset.csv")
 
 # Streamlit UI
 st.title("🏡 House Price Prediction using Multiple Linear Regression")
@@ -41,3 +41,30 @@ st.subheader("📊 Model Evaluation Metrics")
 st.write(f"**Mean Absolute Error (MAE):** {mae:.2f}")
 st.write(f"**Mean Squared Error (MSE):** {mse:.2f}")
 st.write(f"**R² Score:** {r2:.2f}")
+
+# Visualization: Actual vs Predicted Prices
+st.subheader("📈 Actual vs Predicted Prices")
+fig, ax = plt.subplots()
+ax.scatter(y_test, y_pred, color="blue", alpha=0.6)
+ax.plot([min(y_test), max(y_test)], [min(y_test), max(y_test)], color="red", linestyle="dashed")
+ax.set_xlabel("Actual Prices (Lakh ₹)")
+ax.set_ylabel("Predicted Prices (Lakh ₹)")
+ax.set_title("Actual vs Predicted House Prices")
+st.pyplot(fig)
+
+# House Price Prediction Section
+st.subheader("🏠 Predict House Price")
+
+# User inputs for prediction
+size_input = st.slider("Size (sq ft)", min_value=800, max_value=3500, step=100)
+bedrooms_input = st.slider("Number of Bedrooms", min_value=1, max_value=5, step=1)
+bathrooms_input = st.slider("Number of Bathrooms", min_value=1, max_value=4, step=1)
+distance_input = st.slider("Distance from City (km)", min_value=1, max_value=20, step=1)
+age_input = st.slider("House Age (years)", min_value=0, max_value=50, step=1)
+
+
+# Predict button
+if st.button("Predict Price"):
+    user_data = np.array([[size_input, bedrooms_input, bathrooms_input, distance_input, age_input]])
+    predicted_price = model.predict(user_data)[0]
+    st.success(f"🏡 Estimated House Price: ₹ {predicted_price:.2f} Lakh")
