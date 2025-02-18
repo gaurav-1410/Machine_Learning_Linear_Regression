@@ -40,7 +40,6 @@ node_modules/
 # Reports & Generated Files
 *.pdf
 *.json
-*.csv
 
 # Test coverage reports
 .coverage
